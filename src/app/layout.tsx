@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Urbanist } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
 
-const inter = Inter({ subsets: ["latin"] });
+const urbanist = Urbanist({ subsets: ["latin"] , weight: ["100","200","300","500","900","800"] });
 
 export const metadata: Metadata = {
     title: "Todo App",
@@ -16,7 +17,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={inter.className}>{children}</body>
+            <body className={urbanist.className}>
+                <main className="container flex flex-col h-screen mx-auto space-y-11 p-4 xl:w-[80%]">
+                    <Header />
+                    {children}
+                </main>
+            </body>
         </html>
     );
 }
