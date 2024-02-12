@@ -30,7 +30,7 @@ const TaskList = () => {
     }, [todos]);
 
     return (
-        <div className="min-h-[70vh] p-5">
+        <div className="min-h-[70vh] p-2 md:p-5">
             {!state && (
                 <div onClick={()=> setState(true)} className="flex items-center p-2">
                     <div>
