@@ -4,6 +4,7 @@ import Form from "../Form/Form";
 import { useTodoContext } from "@/store/ToDoState";
 import CompletedTask from "./CompletedTask";
 import UnCompletedTask from "./UnCompletedTask";
+import { RxCaretDown } from "react-icons/rx";
 
 const TaskList = () => {
     const [state, setState] = useState(false);
@@ -48,10 +49,18 @@ const TaskList = () => {
                     })}
                 </div>
                 {/* Completed Task  */}
-                <div className="space-y-3">
-                    {completedTask.length > 0 && <h1>Completed Task</h1>}
-                    {completedTask.map((task, index) => {
-                        return <CompletedTask key={task.id} />;
+                <div className="space-y-3 my-12">
+                    {completedTask.length > 0 && (
+                        <div className="flex justify-between">
+                            <h1 className="text-muted space-x-2 items-center flex">
+                                <span>Completed Task</span>
+                                <RxCaretDown  className="text-2xl"/>
+                            </h1>
+                            <p className="text-red-400"> Delete all</p>
+                        </div>
+                    )}
+                    {completedTask.map((task) => {
+                        return <CompletedTask data={task} key={task.id} />;
                     })}
                 </div>
             </div>

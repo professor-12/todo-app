@@ -6,7 +6,7 @@ import { HiPencil } from "react-icons/hi2";
 const Form = () => {
     const [title, setTitle] = useState("");
     const [note, setNote] = useState("");
-    const { dispatchState  } = useTodoContext();
+    const { dispatchState  } = useTodoContext() as any;
     const onSubmit = (e: any) => {
         e.preventDefault();
         if (note.trim().length == 0 || title.trim().length == 0) return;

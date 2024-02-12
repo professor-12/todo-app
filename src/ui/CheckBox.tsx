@@ -1,17 +1,16 @@
 "use client";
 import React, { useState } from "react";
 
-const Checkbox = () => {
+const Checkbox: React.FC<any> = ({ onChange, className }) => {
     const [check, setcheck] = useState(false);
     console.log(check);
     return (
         <div>
             <div className="form-check">
                 <input
-                    onChange={(e) => {
-                        setcheck(e.target.checked);
-                    }}
-                    className="form-check-input"
+                    onChange={onChange}
+                    className={className}
+                    checked
                     type="checkbox"
                 />
             </div>

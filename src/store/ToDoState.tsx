@@ -1,8 +1,16 @@
 "use client";
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { json } from "stream/consumers";
 import { v4 } from "uuid";
+
+type Todos = {
+    title: string;
+    note: string;
+    completed: boolean;
+    id: string;
+};
 export interface InitialState {
-    todos: { title: string; note: string; completed: boolean ,id:string}[];
+    todos: Todos[];
     dispatchState: () => any;
 }
 const initialStore: InitialState = {
@@ -14,10 +22,32 @@ const store = createContext(initialStore) as any;
 export const useTodoContext = () => {
     return useContext<InitialState>(store);
 };
-const reducers = (state: any, action: any) => {
+const reducers = (state: Array<Todos>, action: any) => {
     switch (action.type) {
         case "completed":
-            return action.type;
+            const completedTask = state.findIndex(
+                (item) => item.id === action.id
+            );
+            let oldTask = state;
+            oldTask[completedTask] = {
+                ...oldTask[completedTask],
+                completed: true,
+            };
+            const newTask = [...oldTask];
+            localStorage.setItem("todo",JSON.stringify(newTask))
+            return newTask;
+        case "uncompleted":
+            const uncompletedTask = state.findIndex(
+                (item) => item.id === action.id
+            );
+            let uncompeltedoldTask = state;
+            uncompeltedoldTask[uncompletedTask] = {
+                ...uncompeltedoldTask[uncompletedTask],
+                completed: false,
+            };
+            const Task = [...uncompeltedoldTask];
+            localStorage.setItem("todo",JSON.stringify(Task))
+            return Task;
         case "delete":
             return;
         case "create":
@@ -31,18 +61,26 @@ const reducers = (state: any, action: any) => {
                     id: v4(),
                 },
             ];
-            localStorage.setItem("todo",JSON.stringify(newState))
+            localStorage.setItem("todo", JSON.stringify(newState));
             return newState;
         case "edit":
             return;
+        case "fetchData":
+            return action.data;
     }
-}; 
+};
 
 const ToDoState: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [todo, dispatchState] = useReducer(
         reducers,
         initialStore.todos
     ) as any;
+    useEffect(() => {
+        const db = localStorage.getItem("todo") as any;
+        if (!db) return;
+        const response = JSON.parse(db);
+        dispatchState({ type: "fetchData", data: response });
+    }, []);
     console.log(todo);
     return (
         <store.Provider value={{ todos: todo, dispatchState }}>
