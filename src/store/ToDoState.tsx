@@ -33,7 +33,7 @@ const reducers = (state: Array<Todos>, action: any) => {
                 completed: true,
             };
             const newTask = [...oldTask];
-            localStorage.setItem("todo",JSON.stringify(newTask))
+            localStorage.setItem("todo", JSON.stringify(newTask));
             return newTask;
         case "uncompleted":
             const uncompletedTask = state.findIndex(
@@ -45,10 +45,12 @@ const reducers = (state: Array<Todos>, action: any) => {
                 completed: false,
             };
             const Task = [...uncompeltedoldTask];
-            localStorage.setItem("todo",JSON.stringify(Task))
+            localStorage.setItem("todo", JSON.stringify(Task));
             return Task;
         case "delete":
-            return;
+            const filteredTask = state.filter((item) => item.id !== action.id)
+            localStorage.setItem("todo", JSON.stringify(filteredTask));
+            return filteredTask;
         case "create":
             const oldState = state;
             const newState = [

@@ -8,9 +8,14 @@ import { RxCaretDown } from "react-icons/rx";
 
 const TaskList = () => {
     const [state, setState] = useState(false);
-    const { todos } = useTodoContext();
-    const completedTask = todos.filter((item) => item.completed);
-    const uncompletedTask = todos.filter((item) => !item.completed);
+    const { todos, dispatchState } = useTodoContext() as any;
+    const completedTask = todos.filter((item: any) => item.completed);
+    const uncompletedTask = todos.filter((item: any) => !item.completed);
+    const deleteAll = () => {
+        completedTask.map(({ id }: { id: any }) => {
+            dispatchState({ type: "delete", id });
+        });
+    };
     useEffect(() => {
         const handleKeyPress = (e: any) => {
             if (e.key === "Enter") {
@@ -27,7 +32,7 @@ const TaskList = () => {
     return (
         <div className="min-h-[70vh] p-5">
             {!state && (
-                <div className="flex items-center p-2">
+                <div onClick={()=> setState(true)} className="flex items-center p-2">
                     <div>
                         <div className="border-2 p-1 border-lightgray text-[0.6rem]  text-lightgray rounded-lg">
                             <FaPlus />
@@ -44,7 +49,7 @@ const TaskList = () => {
             <div className="my-12">
                 {/* UnCompleted Task */}
                 <div className="space-y-3">
-                    {uncompletedTask.map((task) => {
+                    {uncompletedTask.map((task:any) => {
                         return <UnCompletedTask data={task} key={task.id} />;
                     })}
                 </div>
@@ -54,12 +59,15 @@ const TaskList = () => {
                         <div className="flex justify-between">
                             <h1 className="text-muted space-x-2 items-center flex">
                                 <span>Completed Task</span>
-                                <RxCaretDown  className="text-2xl"/>
+                                <RxCaretDown className="text-2xl" />
                             </h1>
-                            <p className="text-red-400"> Delete all</p>
+                            <p onClick={deleteAll} className="text-red-400 hover:bg-red-400/30 p-1 rounded-full cursor-pointer duration-300 transition-colors px-3 ">
+                                {" "}
+                                Delete all
+                            </p>
                         </div>
                     )}
-                    {completedTask.map((task) => {
+                    {completedTask.map((task:any) => {
                         return <CompletedTask data={task} key={task.id} />;
                     })}
                 </div>

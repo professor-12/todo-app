@@ -10,7 +10,6 @@ const Checkbox: React.FC<any> = ({ onChange, className }) => {
                 <input
                     onChange={onChange}
                     className={className}
-                    checked
                     type="checkbox"
                 />
             </div>
