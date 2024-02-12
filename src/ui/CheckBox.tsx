@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 const Checkbox: React.FC<any> = ({ onChange, className }) => {
-    const [check, setcheck] = useState(false);
+    const [check] = useState(false);
     console.log(check);
     return (
         <div>
