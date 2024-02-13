@@ -33,9 +33,9 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
             layout
             initial={{ y: -12 }}
             animate={{ y: 0 }}
-            className="bg-pale-white justify-between p-5 px-7 rounded-xl flex"
+            className="bg-pale-white justify-between p-5 md:px-7 rounded-xl flex"
         >
-            <div className="flex space-x-4 w-full">
+            <div className="flex space-x-3 md:space-x-4 w-full">
                 <Checkbox onChange={handleChange} />
                 <div className="text-sm  max-w-[77%] text-slate space-y-2">
                     <h1 className="font-semibold text-[1rem] text-dark-muted">
@@ -55,7 +55,7 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
                 </div>
             </div>
             <div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-1 md:space-x-4">
                     <motion.span layout>
                         <RxCaretRight
                             onClick={() => setShowNote((prev) => !prev)}

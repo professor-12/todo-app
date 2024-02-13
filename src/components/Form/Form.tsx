@@ -6,14 +6,14 @@ import { HiPencil } from "react-icons/hi2";
 const Form = () => {
     const [title, setTitle] = useState("");
     const [note, setNote] = useState("");
-    const { dispatchState  } = useTodoContext() as any;
+    const { dispatchState } = useTodoContext() as any;
     const onSubmit = (e: any) => {
         e.preventDefault();
         if (note.trim().length == 0 || title.trim().length == 0) return;
 
-          dispatchState({ type: "create", note, title }) as any;
-          setNote!("")
-          setTitle!("")
+        dispatchState({ type: "create", note, title }) as any;
+        setNote!("");
+        setTitle!("");
     };
     const ref = useRef() as any;
     return (
@@ -22,8 +22,8 @@ const Form = () => {
                 <span className="border-2 p-1 border-lightblue text-sm text-lightblue rounded-lg">
                     <FaPlus />
                 </span>
-                      <input
-                            value={title}
+                <input
+                    value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     autoFocus
                     className="w-full px-3 focus:outline-none bg-transparent"
@@ -36,15 +36,16 @@ const Form = () => {
                         <HiPencil />
                     </div>
                 </div>
-                      <textarea
-                            value={note}
+                <textarea
+                    value={note}
+                    rows={5}
                     onChange={(e) => setNote(e.target.value)}
-                    className="w-full  border-slate-100 rounded-md  px-3 focus:outline-none bg-transparent"
+                    className="w-full resize-none border-slate-100 rounded-md  px-3 focus:outline-none bg-transparent"
                     placeholder="Add a note"
                 />
             </div>
             {
-                <button className="bg-lightblue/15 p-3 px-4 rounded-xl">
+                <button className="bg-lightblue/15 text-sm md:text-base p-3 md:px-4 rounded-xl">
                     Add Todo
                 </button>
             }

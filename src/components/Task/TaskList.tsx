@@ -31,11 +31,11 @@ const TaskList = () => {
     }, [todos]);
 
     return (
-        <div className="min-h-[70vh] p-5">
+        <div className="min-h-[70vh]   md:p-5">
             {!state && (
                 <div
                     onClick={() => setState(true)}
-                    className="flex items-center p-2"
+                    className="flex items-center md:p-2"
                 >
                     <div>
                         <div className="border-2 p-1 border-lightgray text-[0.6rem]  text-lightgray rounded-lg">
@@ -50,10 +50,10 @@ const TaskList = () => {
 
             {state && <Form />}
 
-            <div className="my-12">
+            <div className="my-5 md:my-12">
                 {/* UnCompleted Task */}
 
-                <div className="space-y-3">
+                <div className="space-y-2 md:space-y-3">
                     <AnimatePresence>
                         {uncompletedTask.map((task: any) => {
                             return (
@@ -63,7 +63,7 @@ const TaskList = () => {
                     </AnimatePresence>
                 </div>
                 {/* Completed Task  */}
-                <div className="space-y-3 my-12">
+                <div className="space-y-3 my-5 md:my-12">
                     {completedTask.length > 0 && (
                         <div className="flex justify-between">
                             <h1 className="text-muted space-x-2 items-center flex">
