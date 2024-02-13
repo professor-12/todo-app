@@ -32,7 +32,6 @@ const Form = () => {
                 <input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    autoFocus
                     className="w-full px-3 focus:outline-none bg-transparent"
                     placeholder="Title.."
                 />
