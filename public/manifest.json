@@ -1,7 +1,7 @@
 {
     "theme_color": "#bdc9ff",
     "background_color": "#fff",
-    "display": "browser",
+    "display": "Standalone",
     "scope": "/",
     "start_url": "/",
     "name": "Todo Application",

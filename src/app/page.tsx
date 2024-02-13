@@ -15,7 +15,7 @@ export default function Home() {
             <div className="hidden md:flex w-full">
                 <div className="my-12 w-full">
                     <div className="space-y-3">
-                        <div className="flex jus">
+                        <div className="flex justify-between">
                             <h1 className="text-4xl text-slate-purple font-[900]">
                                 Welcome,{" "}
                                 <span className="text-lightblue">John</span>
