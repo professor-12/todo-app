@@ -15,10 +15,9 @@ const Form = () => {
         setNote!("");
         setTitle!("");
     };
-    const ref = useRef() as any;
     return (
         <form onSubmit={onSubmit}>
-            <div className="flex p-2 text-slate-600">
+            <div className="flex md:p-2 p-1 py-3 text-slate-600">
                 <span className="border-2 p-1 border-lightblue text-sm text-lightblue rounded-lg">
                     <FaPlus />
                 </span>
@@ -30,7 +29,7 @@ const Form = () => {
                     placeholder="Title.."
                 />
             </div>
-            <div className="flex p-2">
+            <div className="flex md:p-2 p-1">
                 <div>
                     <div className="border-2 p-1 border-slate-400 text-sm text-slate-400 rounded-lg">
                         <HiPencil />
@@ -39,6 +38,8 @@ const Form = () => {
                 <textarea
                     value={note}
                     rows={5}
+                    autoCorrect="on"
+                    autoCapitalize="sentences"
                     onChange={(e) => setNote(e.target.value)}
                     className="w-full resize-none border-slate-100 rounded-md  px-3 focus:outline-none bg-transparent"
                     placeholder="Add a note"

@@ -13,7 +13,6 @@ export const metadata: Metadata = {
     title: "Todo App",
     description: "",
     manifest: "/manifest.json",
-    
 };
 
 export default function RootLayout({
@@ -23,12 +22,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-        
             <body className={urbanist.className}>
                 <ToDoState>
                     <main className="container flex flex-col h-screen mx-auto space-y-11 p-4 xl:w-[80%]">
                         <Header />
-                        {children}
+                        {children as React.ReactNode}
                     </main>
                 </ToDoState>
             </body>

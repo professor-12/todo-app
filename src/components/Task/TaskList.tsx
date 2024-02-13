@@ -31,18 +31,18 @@ const TaskList = () => {
     }, [todos]);
 
     return (
-        <div className="min-h-[70vh]   md:p-5">
+        <div className="min-h-[70vh] md:p-5">
             {!state && (
                 <div
                     onClick={() => setState(true)}
                     className="flex items-center md:p-2"
                 >
-                    <div>
+                    <div className="space-y-1">
                         <div className="border-2 p-1 border-lightgray text-[0.6rem]  text-lightgray rounded-lg">
                             <FaPlus />
                         </div>
                     </div>
-                    <p className="w-full text-sm text-light-text-gray px-3 focus:outline-none bg-transparent">
+                    <p className="w-full text-sm text-light-text-gray p-3 focus:outline-none bg-transparent">
                         Tap “Enter” to create task
                     </p>
                 </div>

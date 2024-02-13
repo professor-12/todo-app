@@ -5,6 +5,7 @@ import { RxCaretRight } from "react-icons/rx";
 import { RxCross2 } from "react-icons/rx";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTodoContext } from "@/store/ToDoState";
+import { TbDots } from "react-icons/tb";
 
 interface Data {
     data: { note: String; title: String; id: String; completed: boolean };
@@ -54,8 +55,8 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
                     </AnimatePresence>
                 </div>
             </div>
-            <div>
-                <div className="flex items-center space-x-1 md:space-x-4">
+            <div className="flex items-center">
+                <div className="md:flex items-center space-x-1 hidden md:space-x-4">
                     <motion.span layout>
                         <RxCaretRight
                             onClick={() => setShowNote((prev) => !prev)}
@@ -72,6 +73,11 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
                         />
                     </span>
                 </div>
+
+                <TbDots
+                    onClick={() => setShowNote((prev) => !prev)}
+                    className="text-slate-600 text-sm"
+                />
             </div>
         </motion.div>
     );

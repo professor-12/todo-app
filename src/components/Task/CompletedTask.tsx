@@ -28,7 +28,7 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
             layout
             initial={{ y: -12 }}
             animate={{ y: 0 }}
-            className="bg-pale-white justify-between p-5 px-7 rounded-xl flex"
+            className="bg-pale-white justify-between p-5 md:px-7 rounded-xl flex"
         >
             <div className="flex space-x-4 w-full items-center">
                 <FaSquareCheck
