@@ -31,12 +31,16 @@ const TaskList = () => {
     }, [todos]);
 
     return (
-        <div className="min-h-[70vh] p-5">
+        <div className="min-h-[70vh] p-2 md:p-5">
             {!state && (
+<<<<<<< HEAD
                 <div
                     onClick={() => setState(true)}
                     className="flex items-center p-2"
                 >
+=======
+                <div onClick={()=> setState(true)} className="flex items-center md:p-2">
+>>>>>>> 17679855450dec9c1c38c611c9cf60843ddc4583
                     <div>
                         <div className="border-2 p-1 border-lightgray text-[0.6rem]  text-lightgray rounded-lg">
                             <FaPlus />
