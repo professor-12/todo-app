@@ -8,7 +8,7 @@ import { FaSquareCheck } from "react-icons/fa6";
 interface Data {
     data: { note: String; title: String; id: String; completed: boolean };
 }
-const UnCompletedTask: React.FC<Data> = ({ data }) => {
+const CompletedTask: React.FC<Data> = ({ data }) => {
     const { dispatchState } = useTodoContext() as any;
     const {  title, id } = data;
     const [  _ , setcheck] = useState(false);
@@ -23,6 +23,7 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
     const handleRemoveTask = () => {
         dispatchState({ type: "delete", id });
     };
+    
     return (
         <motion.div
             layout
@@ -32,11 +33,11 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
         >
             <div className="flex space-x-4 w-full items-center">
                 <FaSquareCheck
-                    className="text-muted h-5 cursor-pointer w-5"
+                    className="text-muted md:h-6 h-5 cursor-pointer w-5"
                     onClick={handleChange}
                 />
                 <div className="text-sm  max-w-[77%] text-slate space-y-2">
-                    <h1 className=" text-[1rem] line-through text-muted">
+                    <h1 className=" text-[1rem] md:line-through text-muted">
                         {title}
                     </h1>
                 </div>
@@ -53,4 +54,4 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
     );
 };
 
-export default UnCompletedTask;
+export default CompletedTask;

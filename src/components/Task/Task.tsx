@@ -11,17 +11,17 @@ const Task = () => {
     useEffect(() => {
         setdb(JSON.parse(localStorage.getItem("todo") as any))
     },[])
-    const [notask, setState] = useState(true);
+    const [notask, setState] = useState(false);
     return (
-        <div>
-            {notask && todos.length == 0 ? (
+        <div className="">
+            {!notask && todos.length == 0 ? (
                 <NoTask
                     onClick={() => {
                         setState((prev) => !prev);
                     }}
                 />
             ) : (
-                <div>
+                <div className="md:flex">
                     <TaskList />
                 </div>
             )}

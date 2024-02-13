@@ -12,7 +12,7 @@ interface Data {
 }
 const UnCompletedTask: React.FC<Data> = ({ data }) => {
     const { dispatchState } = useTodoContext() as any;
-    const { note, title, id, completed } = data;
+    const { note, title, id } = data;
     const [check, setcheck] = useState(false);
     const sringf = "fsf";
 
@@ -45,8 +45,6 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
                     <AnimatePresence>
                         {showNote && (
                             <motion.p
-                                initial={{ y: -12 }}
-                                animate={{ y: 0 }}
                                 className="text-muted leading-4"
                             >
                                 {note.replaceAll("/n", "<br/>")}
@@ -76,7 +74,7 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
 
                 <TbDots
                     onClick={() => setShowNote((prev) => !prev)}
-                    className="text-slate-600 text-sm"
+                    className="text-slate-600  md:hidden text-sm"
                 />
             </div>
         </motion.div>

@@ -5,7 +5,6 @@ import { useTodoContext } from "@/store/ToDoState";
 import CompletedTask from "./CompletedTask";
 import UnCompletedTask from "./UnCompletedTask";
 import { RxCaretDown } from "react-icons/rx";
-import { AnimatePresence } from "framer-motion";
 
 const TaskList = () => {
     const [state, setState] = useState(false);
@@ -31,18 +30,15 @@ const TaskList = () => {
     }, [todos]);
 
     return (
-        <div className="min-h-[70vh] md:p-5">
+        <div className="min-h-[70vh] w-full p-5">
             {!state && (
-                <div
-                    onClick={() => setState(true)}
-                    className="flex items-center md:p-2"
-                >
-                    <div className="space-y-1">
+                <div onClick={()=> setState(true)} className="flex items-center p-2">
+                    <div>
                         <div className="border-2 p-1 border-lightgray text-[0.6rem]  text-lightgray rounded-lg">
                             <FaPlus />
                         </div>
                     </div>
-                    <p className="w-full text-sm text-light-text-gray p-3 focus:outline-none bg-transparent">
+                    <p className="w-full text-sm text-light-text-gray px-3 focus:outline-none bg-transparent">
                         Tap “Enter” to create task
                     </p>
                 </div>
@@ -50,36 +46,28 @@ const TaskList = () => {
 
             {state && <Form />}
 
-            <div className="my-5 md:my-12">
+            <div className="my-12">
                 {/* UnCompleted Task */}
-
-                <div className="space-y-2 md:space-y-3">
-                    <AnimatePresence>
-                        {uncompletedTask.map((task: any) => {
-                            return (
-                                <UnCompletedTask data={task} key={task.id} />
-                            );
-                        })}
-                    </AnimatePresence>
+                <div className="space-y-3">
+                    {uncompletedTask.map((task:any) => {
+                        return <UnCompletedTask data={task} key={task.id} />;
+                    })}
                 </div>
                 {/* Completed Task  */}
-                <div className="space-y-3 my-5 md:my-12">
+                <div className="space-y-3 my-12">
                     {completedTask.length > 0 && (
                         <div className="flex justify-between">
                             <h1 className="text-muted space-x-2 items-center flex">
                                 <span>Completed Task</span>
                                 <RxCaretDown className="text-2xl" />
                             </h1>
-                            <p
-                                onClick={deleteAll}
-                                className="text-red-400 hover:bg-red-400/30 p-1 rounded-full cursor-pointer duration-300 transition-colors px-3 "
-                            >
+                            <p onClick={deleteAll} className="text-red-400 hover:bg-red-400/30 p-1 rounded-full cursor-pointer duration-300 transition-colors px-3 ">
                                 {" "}
                                 Delete all
                             </p>
                         </div>
                     )}
-                    {completedTask.map((task: any) => {
+                    {completedTask.map((task:any) => {
                         return <CompletedTask data={task} key={task.id} />;
                     })}
                 </div>

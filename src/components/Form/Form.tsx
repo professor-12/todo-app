@@ -2,19 +2,27 @@ import { useTodoContext } from "@/store/ToDoState";
 import React, { useEffect, useRef, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { HiPencil } from "react-icons/hi2";
+import { useTabs } from "../mobile/store";
 
 const Form = () => {
+    const { _  , setTab } = useTabs();
     const [title, setTitle] = useState("");
     const [note, setNote] = useState("");
     const { dispatchState } = useTodoContext() as any;
     const onSubmit = (e: any) => {
         e.preventDefault();
         if (note.trim().length == 0 || title.trim().length == 0) return;
-
         dispatchState({ type: "create", note, title }) as any;
         setNote!("");
         setTitle!("");
     };
+    const onSubmitForMobile = () => {
+        if (note.trim().length == 0 || title.trim().length == 0) return;
+        dispatchState({ type: "create", note, title }) as any;
+        setNote!("");
+        setTab("todo")
+        setTitle!("");
+    }
     return (
         <form onSubmit={onSubmit}>
             <div className="flex md:p-2 p-1 py-3 text-slate-600">
@@ -37,7 +45,6 @@ const Form = () => {
                 </div>
                 <textarea
                     value={note}
-                    rows={5}
                     autoCorrect="on"
                     autoCapitalize="sentences"
                     onChange={(e) => setNote(e.target.value)}
@@ -45,11 +52,13 @@ const Form = () => {
                     placeholder="Add a note"
                 />
             </div>
-            {
-                <button className="bg-lightblue/15 text-sm md:text-base p-3 md:px-4 rounded-xl">
-                    Add Todo
-                </button>
-            }
+
+            <button type="submit" className="float-right hidden md:flex md:float-left text-blue-500">
+                create
+            </button>
+            <button onClick={(e) => { setTab("todo"); onSubmitForMobile }} className="float-right md:float-left text-blue-500 md:hidden">
+                create
+            </button>
         </form>
     );
 };
