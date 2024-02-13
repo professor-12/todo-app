@@ -5,6 +5,7 @@ import { useTodoContext } from "@/store/ToDoState";
 import CompletedTask from "./CompletedTask";
 import UnCompletedTask from "./UnCompletedTask";
 import { RxCaretDown } from "react-icons/rx";
+import { AnimatePresence } from "framer-motion";
 
 const TaskList = () => {
     const [state, setState] = useState(false);
@@ -32,7 +33,10 @@ const TaskList = () => {
     return (
         <div className="min-h-[70vh] p-5">
             {!state && (
-                <div onClick={()=> setState(true)} className="flex items-center p-2">
+                <div
+                    onClick={() => setState(true)}
+                    className="flex items-center p-2"
+                >
                     <div>
                         <div className="border-2 p-1 border-lightgray text-[0.6rem]  text-lightgray rounded-lg">
                             <FaPlus />
@@ -48,10 +52,15 @@ const TaskList = () => {
 
             <div className="my-12">
                 {/* UnCompleted Task */}
+
                 <div className="space-y-3">
-                    {uncompletedTask.map((task:any) => {
-                        return <UnCompletedTask data={task} key={task.id} />;
-                    })}
+                    <AnimatePresence>
+                        {uncompletedTask.map((task: any) => {
+                            return (
+                                <UnCompletedTask data={task} key={task.id} />
+                            );
+                        })}
+                    </AnimatePresence>
                 </div>
                 {/* Completed Task  */}
                 <div className="space-y-3 my-12">
@@ -61,13 +70,16 @@ const TaskList = () => {
                                 <span>Completed Task</span>
                                 <RxCaretDown className="text-2xl" />
                             </h1>
-                            <p onClick={deleteAll} className="text-red-400 hover:bg-red-400/30 p-1 rounded-full cursor-pointer duration-300 transition-colors px-3 ">
+                            <p
+                                onClick={deleteAll}
+                                className="text-red-400 hover:bg-red-400/30 p-1 rounded-full cursor-pointer duration-300 transition-colors px-3 "
+                            >
                                 {" "}
                                 Delete all
                             </p>
                         </div>
                     )}
-                    {completedTask.map((task:any) => {
+                    {completedTask.map((task: any) => {
                         return <CompletedTask data={task} key={task.id} />;
                     })}
                 </div>

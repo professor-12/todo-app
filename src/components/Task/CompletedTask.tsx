@@ -10,8 +10,8 @@ interface Data {
 }
 const UnCompletedTask: React.FC<Data> = ({ data }) => {
     const { dispatchState } = useTodoContext() as any;
-    const { note, title, id, completed } = data;
-    const [check, setcheck] = useState(false);
+    const {  title, id } = data;
+    const [  _ , setcheck] = useState(false);
     const handleChange = (e: any) => {
         setcheck((prev) => {
             if (!prev) {
