@@ -20,7 +20,6 @@ export default function Home() {
                                 Welcome,{" "}
                                 <span className="text-lightblue">John</span>
                             </h1>
-                            <Search/>
                         </div>
                         {todos.length == 0 ? (
                             <p className="text-muted text-sm">

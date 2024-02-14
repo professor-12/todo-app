@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, {  useState } from "react";
 import Checkbox from "@/ui/CheckBox";
 import { HiPencil } from "react-icons/hi2";
 import { RxCaretRight } from "react-icons/rx";
@@ -22,7 +22,7 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
             if (!prev) {
                 dispatchState({ type: "completed", id });
             }
-            return e.target.value;
+            return e?.target?.value;
         });
     };
     const handleRemoveTask = () => {
@@ -44,9 +44,7 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
                     </h1>
                     <AnimatePresence>
                         {showNote && (
-                            <motion.p
-                                className="text-muted leading-4"
-                            >
+                            <motion.p className="text-muted leading-4">
                                 {note.replaceAll("/n", "<br/>")}
                             </motion.p>
                         )}
@@ -71,11 +69,12 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
                         />
                     </span>
                 </div>
-
-                <TbDots
-                    onClick={() => setShowNote((prev) => !prev)}
-                    className="text-slate-600  md:hidden text-sm"
-                />
+                <div className="h-full">
+                    <TbDots
+                        onClick={() => setShowNote((prev) => !prev)}
+                        className="text-muted  md:hidden text-2xl"
+                    />
+                </div>
             </div>
         </motion.div>
     );

@@ -20,7 +20,7 @@ const Todo = () => {
                     {Todo.length > 0 && (
                         <div className="flex justify-between">
                             <h1 className="text-lg space-x-2 items-center flex">
-                                <span>Completed Task</span>
+                                <span className="font-semibold text-slate-800">Completed Task</span>
                                 <RxCaretDown className="text-2xl" />
                             </h1>
                             <p
