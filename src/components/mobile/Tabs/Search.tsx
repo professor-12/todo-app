@@ -12,13 +12,15 @@ const Search = () => {
     const [searchResult, setSearchResult] = useState([]) as any;
     const [value, setValue] = useState("");
     useEffect(() => {
-        const filterdvalue = unCompletedtodo.filter((items) =>
-            items.title.toLowerCase().includes(value.toLocaleLowerCase())
+        const filterdvalue = unCompletedtodo.filter(
+            (items) =>
+                items.title.toLowerCase().includes(value.toLocaleLowerCase()) ||
+                items.note.toLowerCase().includes(value.toLocaleLowerCase())
         );
         if (value.trim().length == 0) return;
         setSearchResult(filterdvalue);
+    
     }, [value]);
-    console.log(searchResult);
     return (
         <>
             <div className="bg-pale-white  group border flex group items-center space-x-2 px-3 overflow-hidden rounded-xl">
