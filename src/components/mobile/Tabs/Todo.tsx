@@ -8,7 +8,7 @@ import Create from "./Create";
 import { AnimatePresence } from "framer-motion";
 
 const Todo = () => {
-    const { todos } = useTodoContext();
+    const { todos, userProfile } = useTodoContext();
     const { tab, setTab } = useTabs();
     const [state] = useState(false);
     const Todo = todos.filter((items) => !items.completed);
@@ -16,7 +16,8 @@ const Todo = () => {
         <div className="space-y-4">
             <div className="space-y-3">
                 <h1 className="text-4xl text-slate-purple font-[900]">
-                    Welcome, <span className="text-lightblue">John</span>
+                    Welcome,{" "}
+                    <span className="text-lightblue">{userProfile?.name}</span>
                 </h1>
                 {todos.length == 0 ? (
                     <p className="text-muted text-sm">
@@ -32,13 +33,15 @@ const Todo = () => {
                     </div>
                 )}
             </div>
-            {!state && Todo.length === 0 ? (
-                <NoTask onClick={() => setTab("create")} />
-            ) : (
-                Todo.map((items) => {
-                    return <UnCompletedTask key={items.id} data={items} />;
-                })
-            )}
+            <div className="space-y-4 p-1 max-h-[30rem] overflow-y-auto pb-24">
+                {!state && Todo.length === 0 ? (
+                    <NoTask onClick={() => setTab("create")} />
+                ) : (
+                    Todo.map((items) => {
+                        return <UnCompletedTask key={items.id} data={items} />;
+                    })
+                )}
+            </div>
             <AnimatePresence>{tab == "create" && <Create />}</AnimatePresence>
         </div>
     );

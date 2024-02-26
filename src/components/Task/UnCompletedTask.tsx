@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Checkbox from "@/ui/CheckBox";
 import { HiPencil } from "react-icons/hi2";
 import { RxCaretRight } from "react-icons/rx";
@@ -44,7 +44,12 @@ const UnCompletedTask: React.FC<Data> = ({ data }) => {
                     </h1>
                     <AnimatePresence>
                         {showNote && (
-                            <motion.p className="text-muted leading-4">
+                            <motion.p
+                                
+                                animate={{ y: [-15, 0] }}
+                                exit={{ y: [0, -12], opacity: 0 }}
+                                className="text-muted leading-4"
+                            >
                                 {note.replaceAll("/n", "<br/>")}
                             </motion.p>
                         )}
