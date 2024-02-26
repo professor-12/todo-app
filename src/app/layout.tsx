@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 import Header from "@/components/header";
 import ToDoState from "../store/ToDoState";
 import NavBar from "@/components/mobile/NavBar";
 
 const urbanist = Urbanist({
     subsets: ["latin"],
-    weight: ["100", "200", "300",
-        "400", "500", "900", "800"],
+    weight: ["100", "200", "300", "400", "500", "900", "800"],
 });
 
 export const metadata: Metadata = {
@@ -25,11 +25,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={urbanist.className}>
+                <Toaster />
                 <ToDoState>
                     <main className="container flex flex-col h-screen mx-auto space-y-11 p-4 xl:w-[80%]">
                         <Header />
                         {children as React.ReactNode}
-                        
                     </main>
                 </ToDoState>
             </body>

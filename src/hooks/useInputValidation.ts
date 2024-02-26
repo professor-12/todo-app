@@ -1,10 +1,14 @@
 "use client"
-
-import { error } from "console"
 import { useState } from "react"
 
-export const useValidation = (error: () => {}) => {
+export interface UseValidationType {
+      isTouched: boolean;
+      hasError: boolean;
+      setIsTouched: (a:boolean) => any
+}
+
+export const useValidation = (error: () => any) => {
       const [isTouched, setIsTouched] = useState(false)
       const hasError = isTouched && error()
-      return {hasError, isTouched, setIsTouched}
+      return {hasError, isTouched, setIsTouched} 
 }

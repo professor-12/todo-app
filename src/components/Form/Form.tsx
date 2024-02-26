@@ -77,9 +77,9 @@ const Form = () => {
                         autoCorrect="on"
                         autoCapitalize="sentences"
                         onChange={(e) => setNote(e.target.value)}
-                        className={`w-full ${
+                        className={`w-full overflow-y-hidden ${
                             noteHasError && "border"
-                        } rounded border-red-300 md:text-start px-2 focus:outline-none bg-transparent`}
+                        } rounded border-red-300  md:text-start px-2 focus:outline-none bg-transparent`}
                         placeholder="Add a note"
                     />
                 </div>

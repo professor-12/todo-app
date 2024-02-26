@@ -9,6 +9,7 @@ import { useTabs } from "./store";
 
 const NavBar = () => {
     const { tab, setTab } = useTabs();
+    
     const isActive = (id: any) => {
         return tab === id;
     };

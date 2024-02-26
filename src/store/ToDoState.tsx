@@ -1,5 +1,11 @@
 "use client";
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useReducer,
+    useState,
+} from "react";
 import { v4 } from "uuid";
 
 type Todos = {
@@ -11,16 +17,19 @@ type Todos = {
 export interface InitialState {
     todos: Todos[];
     dispatchState: () => any;
+    userProfile: any;
 }
 const initialStore: InitialState = {
     todos: [],
     dispatchState: () => {},
+    userProfile: null,
 };
 
 const store = createContext(initialStore) as any;
 export const useTodoContext = () => {
     return useContext<InitialState>(store);
 };
+
 const reducers = (state: Array<Todos>, action: any) => {
     switch (action.type) {
         case "completed":
@@ -48,7 +57,7 @@ const reducers = (state: Array<Todos>, action: any) => {
             localStorage.setItem("todo", JSON.stringify(Task));
             return Task;
         case "delete":
-            const filteredTask = state.filter((item) => item.id !== action.id)
+            const filteredTask = state.filter((item) => item.id !== action.id);
             localStorage.setItem("todo", JSON.stringify(filteredTask));
             return filteredTask;
         case "create":
@@ -72,19 +81,25 @@ const reducers = (state: Array<Todos>, action: any) => {
 };
 
 const ToDoState: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const profile = localStorage.getItem!("profile") as any;
     const [todo, dispatchState] = useReducer(
         reducers,
         initialStore.todos
     ) as any;
+    const [userProfile, setUserProfile] = useState(JSON.parse(profile) as any);
     useEffect(() => {
+        if (!userProfile) {
+            return alert("User Not Logged in");
+        }
         const db = localStorage.getItem("todo") as any;
         if (!db) return;
         const response = JSON.parse(db);
         dispatchState({ type: "fetchData", data: response });
     }, []);
-    console.log(todo);
     return (
-        <store.Provider value={{ todos: todo, dispatchState }}>
+        <store.Provider
+            value={{ todos: todo, dispatchState, userProfile, setUserProfile }}
+        >
             {children}
         </store.Provider>
     );
