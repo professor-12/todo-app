@@ -1,57 +1,36 @@
 import { useTodoContext } from "@/store/ToDoState";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { HiPencil } from "react-icons/hi2";
 import { useTabs } from "../mobile/store";
 import { useValidation } from "@/hooks/useInputValidation";
 
-const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
+const EditForm: React.FC<any> = ({ title, note }) => {
     const { _, setTab } = useTabs();
-    const [title, setTitle] = useState("");
-    const [note, setNote] = useState("");
 
-    const { hasError: noteHasError, setIsTouched: setNoteisTouched } =
-        useValidation(() => note.trim().length == 0);
+    const [Edittitle, setEditTitle] = useState(title);
+    const [Editnote, setEditNote] = useState(note);
     useEffect(() => {
-        if (dataToEdit && dataToEdit?.edit) {
-            setNote(dataToEdit.note);
-            setTitle(dataToEdit.title);
-        } else {
-            setNote("");
-            setTitle("");
-        }
-    }, [dataToEdit?.note, dataToEdit?.title, dataToEdit?.edit]);
-    const { hasError: TitleHasError, setIsTouched: setTitleIsTouched } =
-        useValidation(() => title.trim().length == 0) as any;
-    const { dispatchState } = useTodoContext() as any;
+        setEditNote(note);
+        setEditNote(title);
+    }, []);
 
-    const helper = () => {
-        setNote!("");
-        setTitle!("");
-        setNoteisTouched(false);
-        setTitleIsTouched(false);
-        dataToEdit && setDataToEdit((prev: any) => ({ ...prev, edit: false }));
-        dataToEdit && state(false);
-    };
+    const { hasError: TitleHasError, setIsTouched: setTitleIsTouched } =
+        useValidation(() => Edittitle.trim().length == 0) as any;
+    const { hasError: noteHasError, setIsTouched: setNoteisTouched } =
+        useValidation(() => Editnote.trim().length == 0);
+    const { dispatchState } = useTodoContext() as any;
 
     const onSubmit = (e: any) => {
         e.preventDefault();
         setNoteisTouched(true);
         setTitleIsTouched(true);
-        if (note.trim().length == 0 || title.trim().length == 0) return;
-        if (dataToEdit.edit) {
-            if (dataToEdit.edit) {
-                dispatchState({
-                    type: "edit",
-                    id: dataToEdit.id,
-                    value: { note, title },
-                });
-            }
-        } else {
-            dispatchState({ type: "create", note, title }) as any;
-        }
-
-        helper();
+        if (Editnote.trim().length == 0 || Edittitle.trim().length == 0) return;
+        dispatchState({ type: "edit", note, title }) as any;
+        setEditNote!("");
+        setEditTitle!("");
+        setNoteisTouched(false);
+        setTitleIsTouched(false);
     };
     const onSubmitForMobile = () => {
         setNoteisTouched(true);
@@ -59,10 +38,13 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
         if (note.trim().length == 0 || title.trim().length == 0) {
             return;
         }
-        dispatchState({ type: "create", note, title }) as any;
-        helper();
+        dispatchState({ type: "edit", note, title }) as any;
+        setEditNote!("");
+        setTab("todo");
+        setEditTitle!("");
+        setNoteisTouched(false);
+        setTitleIsTouched(false);
     };
-
     return (
         <form onSubmit={onSubmit}>
             <div className="flex  md:w-[60%]  flex-col md:p-2 p-1 py-3 text-slate-600">
@@ -72,8 +54,8 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
                     </span>
                     <input
                         onBlur={() => setTitleIsTouched(true)}
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        value={Edittitle}
+                        onChange={(e) => setEditTitle(e.target.value)}
                         className={`flex w-full ${
                             TitleHasError && "border"
                         } rounded border-red-300 px-2 focus:outline-none bg-transparent`}
@@ -95,10 +77,10 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
                     </div>
                     <textarea
                         onBlur={() => setNoteisTouched(true)}
-                        value={note}
+                        value={Editnote}
                         autoCorrect="on"
                         autoCapitalize="sentences"
-                        onChange={(e) => setNote(e.target.value)}
+                        onChange={(e) => setEditNote(e.target.value)}
                         className={`w-full overflow-y-hidden ${
                             noteHasError && "border"
                         } rounded border-red-300  md:text-start px-2 focus:outline-none bg-transparent`}
@@ -116,7 +98,7 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
                 type="submit"
                 className="float-right hidden md:flex md:float-left text-blue-500"
             >
-                {dataToEdit?.edit ? "edit" : "create"}
+                edit
             </button>
             <button
                 onClick={(e) => {
@@ -125,10 +107,10 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
                 }}
                 className="float-right md:float-left text-blue-500 md:hidden"
             >
-                {dataToEdit?.edit ? "edit" : "create"}
+                edit
             </button>
         </form>
     );
 };
 
-export default Form;
+export default EditForm;

@@ -1,16 +1,16 @@
 "use client";
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import NoTask from "../NoTask";
 import TaskList from "./TaskList";
 import { useTodoContext } from "@/store/ToDoState";
 
 const Task = () => {
-    const [db, setdb] = useState([]) as any
-    const { todos } = useTodoContext()
+    const [_, setdb] = useState([]) as any;
+    const { todos } = useTodoContext();
     useEffect(() => {
-        setdb(JSON.parse(localStorage.getItem("todo") as any))
-    },[])
+        setdb(JSON.parse(localStorage.getItem("todo") as any));
+    }, []);
     const [notask, setState] = useState(false);
     return (
         <div className="">

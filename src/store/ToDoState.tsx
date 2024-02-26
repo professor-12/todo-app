@@ -74,7 +74,20 @@ const reducers = (state: Array<Todos>, action: any) => {
             localStorage.setItem("todo", JSON.stringify(newState));
             return newState;
         case "edit":
-            return;
+            let old = state;
+            const ItemThatNeedsToBeEdited = old.findIndex((index) => {
+                console.log(index.id, action.id);
+                return index.id == action.id;
+            });
+            console.log(ItemThatNeedsToBeEdited);
+            old[ItemThatNeedsToBeEdited] = {
+                ...old[ItemThatNeedsToBeEdited],
+                ...action.value,
+            };
+            const newVariable = [...old];
+
+            localStorage.setItem("todo", JSON.stringify(newVariable));
+            return newVariable;
         case "fetchData":
             return action.data;
     }
