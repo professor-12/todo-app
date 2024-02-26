@@ -11,9 +11,7 @@ export default function Home() {
     const { todos, userProfile } = useTodoContext();
     const uncompleted = todos.filter((items) => !items.completed);
     if (!userProfile) {
-        return (
-            <Registeration/>
-        );
+        return <Registeration />;
     }
     return (
         <>
@@ -24,7 +22,9 @@ export default function Home() {
                         <div className="flex justify-between">
                             <h1 className="text-4xl text-slate-purple font-[900]">
                                 Welcome,{" "}
-                                <span className="text-lightblue">{userProfile?.name}</span>
+                                <span className="text-lightblue">
+                                    {userProfile?.name}
+                                </span>
                             </h1>
                         </div>
                         {todos.length == 0 ? (

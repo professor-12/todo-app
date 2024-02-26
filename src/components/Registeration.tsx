@@ -12,16 +12,17 @@ const Registeration = () => {
         () => name.trim().length == 0
     ) as UseValidationType;
     const avatar = RandomAvatarGenerator();
-    const handleRegistration = async (e: FormEvent) => {
-        e.preventDefault();
+      const handleRegistration = async (e: FormEvent) => {
+            e.preventDefault();
+            const data = { name, profilePics: avatar };
         setIsTouched(true);
         if (hasError) return;
-        setUserProfile({ name });
+        setUserProfile(data);
         localStorage.setItem(
             "profile",
-            JSON.stringify({ name, profilePics: avatar })
+            JSON.stringify(data)
         );
-        toast.success(`Welcome ${name}`);
+        toast.success(`Welcome ${data.name}`);
     };
     return (
         <div className="space-y-7">
@@ -39,7 +40,7 @@ const Registeration = () => {
                             type="text"
                             onBlur={() => setIsTouched(true)}
                             className={`bg-transparent border lg:w-[70%] p-2 rounded-lg focus:outline-none border-slate-400 ${
-                                hasError && "border-red-500 bg-red-200"
+                                hasError &&  " border-red-500 bg-red-200"
                             }`}
                             placeholder="Input your Name.."
                         />

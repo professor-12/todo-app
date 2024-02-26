@@ -81,16 +81,17 @@ const reducers = (state: Array<Todos>, action: any) => {
 };
 
 const ToDoState: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const profile = localStorage.getItem!("profile") as any;
     const [todo, dispatchState] = useReducer(
         reducers,
         initialStore.todos
     ) as any;
-    const [userProfile, setUserProfile] = useState(JSON.parse(profile) as any);
+    const [userProfile, setUserProfile] = useState() as any;
     useEffect(() => {
-        if (!userProfile) {
+        const profile = localStorage.getItem!("profile") as any;
+        if (!profile) {
             return alert("User Not Logged in");
         }
+        setUserProfile(JSON.parse(profile));
         const db = localStorage.getItem("todo") as any;
         if (!db) return;
         const response = JSON.parse(db);
