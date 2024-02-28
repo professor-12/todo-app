@@ -8,11 +8,13 @@ import React, {
 } from "react";
 import { v4 } from "uuid";
 
-type Todos = {
+export type Todos = {
     title: string;
     note: string;
     completed: boolean;
     id: string;
+    dateCreated?: Date;
+    dateCompleted?: string;
 };
 export interface InitialState {
     todos: Todos[];
@@ -30,6 +32,12 @@ export const useTodoContext = () => {
     return useContext<InitialState>(store);
 };
 
+const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+} as any;
 const reducers = (state: Array<Todos>, action: any) => {
     switch (action.type) {
         case "completed":
@@ -40,6 +48,7 @@ const reducers = (state: Array<Todos>, action: any) => {
             oldTask[completedTask] = {
                 ...oldTask[completedTask],
                 completed: true,
+                dateCompleted: new Date().toLocaleDateString("en-US", options),
             };
             const newTask = [...oldTask];
             localStorage.setItem("todo", JSON.stringify(newTask));
@@ -69,12 +78,30 @@ const reducers = (state: Array<Todos>, action: any) => {
                     title: action.title,
                     conpleted: true,
                     id: v4(),
+                    dateCreated: new Date().toLocaleDateString(
+                        "en-US",
+                        options
+                    ),
                 },
             ];
             localStorage.setItem("todo", JSON.stringify(newState));
             return newState;
         case "edit":
-            return;
+            let old = state;
+            const ItemThatNeedsToBeEdited = old.findIndex((index) => {
+                return index.id == action.id;
+            });
+
+            
+
+            old[ItemThatNeedsToBeEdited] = {
+                ...old[ItemThatNeedsToBeEdited],
+                ...action.value,
+            };
+            const newVariable = [...old];
+
+            localStorage.setItem("todo", JSON.stringify(newVariable));
+            return newVariable;
         case "fetchData":
             return action.data;
     }

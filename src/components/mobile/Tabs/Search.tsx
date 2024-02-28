@@ -19,7 +19,6 @@ const Search = () => {
         );
         if (value.trim().length == 0) return;
         setSearchResult(filterdvalue);
-    
     }, [value]);
     return (
         <>
@@ -27,6 +26,7 @@ const Search = () => {
                 <CiSearch className="text-blue-700 cursor-pointer  text-xl" />
                 <input
                     value={value}
+                    placeholder="Search Todo.."
                     onChange={(e) => setValue(e.target.value)}
                     className="py-2 group-hover:border-lightblue flex-1 bg-transparent focus:outline-none"
                     type="text"
@@ -38,7 +38,9 @@ const Search = () => {
             </div>
             {value.trim().length == 0 && searchResult.length == 0 && (
                 <div className="flex h-[60vh] w-full items-center  justify-center">
-                    <p className="text-3xl text-dark-muted font-semibold">Search Todos..</p>
+                    <p className="text-3xl text-dark-muted ">
+                        Search Todos..
+                    </p>
                 </div>
             )}
             {value.trim().length > 0 && searchResult.length == 0 && (

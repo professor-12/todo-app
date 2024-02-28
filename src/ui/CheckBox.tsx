@@ -12,9 +12,8 @@ const Checkbox: React.FC<any> = ({ onChange, className }) => {
             onChange();
         }, 1000);
     };
-    console.log(check);
     return (
-        <div className="flex h-full items-center" onClick={onClick}>
+        <div className="flex h-full" onClick={onClick}>
             <div>
                 {!check ? (
                     <ImCheckboxUnchecked

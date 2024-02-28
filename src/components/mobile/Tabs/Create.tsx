@@ -3,7 +3,11 @@ import { motion } from "framer-motion";
 import Form from "@/components/Form/Form";
 import { useTabs } from "../store";
 
-const Create = () => {
+interface CreateComponentType<U = {}> {
+    editValue: string;
+    setEditValue: () => any;
+}
+const Create: React.FC<CreateComponentType> = ({ editValue, setEditValue }) => {
     const { _, setTab } = useTabs();
     return (
         <>
@@ -14,7 +18,7 @@ const Create = () => {
                 exit={{ y: 300 }}
                 className="fixed z-auto bg-white bottom-0 left-0 h-[32rem] shadow-slate-400 rounded-t-[3rem] right-0 shadow-2xl p-8 text-center"
             >
-                <Form />
+                <Form dataToEdit={editValue} setDataToEdit={setEditValue} />
             </motion.div>
         </>
     );

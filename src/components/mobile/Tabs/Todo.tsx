@@ -9,8 +9,14 @@ import { AnimatePresence } from "framer-motion";
 
 const Todo = () => {
     const { todos, userProfile } = useTodoContext();
+    const [value, setEditValue] = useState({edit:false}) as any;
     const { tab, setTab } = useTabs();
     const [state] = useState(false);
+
+    const handleEdit = (title: string, value: string, id: string) => {
+        setTab("create");
+        setEditValue(() => ({ title: title, note: value, edit: true, id }));
+    };
     const Todo = todos.filter((items) => !items.completed);
     return (
         <div className="space-y-4">
@@ -19,7 +25,7 @@ const Todo = () => {
                     Welcome,{" "}
                     <span className="text-lightblue">{userProfile?.name}</span>
                 </h1>
-                {todos.length == 0 ? (
+                {Todo.length == 0 ? (
                     <p className="text-muted text-sm">
                         Create tasks to achieve more.
                     </p>
@@ -27,7 +33,8 @@ const Todo = () => {
                     <div>
                         {
                             <p className="text-muted text-sm">
-                                You&apos;ve got {Todo.length} task(s) to do
+                                You&apos;ve got {Todo?.length}{" "}
+                                {Todo?.length == 1 ? "task" : "tasks"} to do
                             </p>
                         }
                     </div>
@@ -38,11 +45,26 @@ const Todo = () => {
                     <NoTask onClick={() => setTab("create")} />
                 ) : (
                     Todo.map((items) => {
-                        return <UnCompletedTask key={items.id} data={items} />;
+                        return (
+                            <div onClick={(e) => {}}>
+                                <UnCompletedTask
+                                    handleEdit={handleEdit}
+                                    key={items.id}
+                                    data={items}
+                                />
+                            </div>
+                        );
                     })
                 )}
             </div>
-            <AnimatePresence>{tab == "create" && <Create />}</AnimatePresence>
+            <AnimatePresence>
+                {tab == "create" && (
+                    <Create
+                        editValue={value}
+                        setEditValue={setEditValue}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 };

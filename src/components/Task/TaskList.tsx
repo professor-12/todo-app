@@ -1,4 +1,4 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import Form from "../Form/Form";
 import { useTodoContext } from "@/store/ToDoState";
@@ -8,9 +8,18 @@ import { RxCaretDown } from "react-icons/rx";
 
 const TaskList = () => {
     const [state, setState] = useState(false);
+    const [editValue, setEditValue] = useState({ edit: false }) as any;
+    const [formType] = useState("create");
     const { todos, dispatchState } = useTodoContext() as any;
     const completedTask = todos.filter((item: any) => item.completed);
     const uncompletedTask = todos.filter((item: any) => !item.completed);
+
+    const handleEdit = (title: string, value: string, id: string) => {
+        setState(true);
+
+        setEditValue(() => ({ title: title, note: value, edit: true, id }));
+    };
+
     const deleteAll = () => {
         completedTask.map(({ id }: { id: any }) => {
             dispatchState({ type: "delete", id });
@@ -27,12 +36,14 @@ const TaskList = () => {
         return () => {
             document.removeEventListener("keydown", handleKeyPress);
         };
-    }, [todos]);
-
+    }, []);
     return (
         <div className="min-h-[70vh] w-full p-5">
             {!state && (
-                <div onClick={()=> setState(true)} className="flex items-center p-2">
+                <div
+                    onClick={() => setState(true)}
+                    className="flex items-center p-2"
+                >
                     <div>
                         <div className="border-2 p-1 border-lightgray text-[0.6rem]  text-lightgray rounded-lg">
                             <FaPlus />
@@ -44,13 +55,26 @@ const TaskList = () => {
                 </div>
             )}
 
-            {state && <Form />}
+            {state && (
+                <Form
+                    type={formType}
+                    dataToEdit={editValue}
+                    setDataToEdit={setEditValue}
+                    state={setState}
+                />
+            )}
 
             <div className="my-12">
                 {/* UnCompleted Task */}
                 <div className="space-y-3">
-                    {uncompletedTask.map((task:any) => {
-                        return <UnCompletedTask data={task} key={task.id} />;
+                    {uncompletedTask.map((task: any) => {
+                        return (
+                            <UnCompletedTask
+                                data={task}
+                                handleEdit={handleEdit}
+                                key={task.id}
+                            />
+                        );
                     })}
                 </div>
                 {/* Completed Task  */}
@@ -61,13 +85,16 @@ const TaskList = () => {
                                 <span>Completed Task</span>
                                 <RxCaretDown className="text-2xl" />
                             </h1>
-                            <p onClick={deleteAll} className="text-red-400 hover:bg-red-400/30 p-1 rounded-full cursor-pointer duration-300 transition-colors px-3 ">
+                            <p
+                                onClick={deleteAll}
+                                className="text-red-400 hover:bg-red-400/30 p-1 rounded-full cursor-pointer duration-300 transition-colors px-3 "
+                            >
                                 {" "}
                                 Delete all
                             </p>
                         </div>
                     )}
-                    {completedTask.map((task:any) => {
+                    {completedTask.map((task: any) => {
                         return <CompletedTask data={task} key={task.id} />;
                     })}
                 </div>
