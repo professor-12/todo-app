@@ -27,7 +27,7 @@ export default function Home() {
                                 </span>
                             </h1>
                         </div>
-                        {todos.length == 0 ? (
+                        {uncompleted.length == 0 ? (
                             <p className="text-muted text-sm">
                                 Create tasks to achieve more.
                             </p>
@@ -36,7 +36,10 @@ export default function Home() {
                                 {
                                     <p className="text-muted text-sm">
                                         You&apos;ve got {uncompleted.length}{" "}
-                                        task(s) to do
+                                        {uncompleted.length == 1
+                                            ? "task"
+                                            : "tasks"}{" "}
+                                        to do
                                     </p>
                                 }
                             </div>

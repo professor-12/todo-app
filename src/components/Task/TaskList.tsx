@@ -9,7 +9,7 @@ import { RxCaretDown } from "react-icons/rx";
 const TaskList = () => {
     const [state, setState] = useState(false);
     const [editValue, setEditValue] = useState({ edit: false }) as any;
-    const [formType, setFormType] = useState("create");
+    const [formType] = useState("create");
     const { todos, dispatchState } = useTodoContext() as any;
     const completedTask = todos.filter((item: any) => item.completed);
     const uncompletedTask = todos.filter((item: any) => !item.completed);

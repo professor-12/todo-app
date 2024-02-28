@@ -31,7 +31,7 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
         setNoteisTouched(false);
         setTitleIsTouched(false);
         dataToEdit && setDataToEdit((prev: any) => ({ ...prev, edit: false }));
-        dataToEdit && state(false);
+        dataToEdit && state && state(false);
     };
 
     const onSubmit = (e: any) => {
@@ -51,15 +51,6 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
             dispatchState({ type: "create", note, title }) as any;
         }
 
-        helper();
-    };
-    const onSubmitForMobile = () => {
-        setNoteisTouched(true);
-        setTitleIsTouched(true);
-        if (note.trim().length == 0 || title.trim().length == 0) {
-            return;
-        }
-        dispatchState({ type: "create", note, title }) as any;
         helper();
     };
 
@@ -116,16 +107,17 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
                 type="submit"
                 className="float-right hidden md:flex md:float-left text-blue-500"
             >
-                {dataToEdit?.edit ? "edit" : "create"}
+                {dataToEdit?.edit ? "Edit" : "Create"}
             </button>
             <button
+                type="button"
                 onClick={(e) => {
                     setTab("todo");
-                    onSubmitForMobile;
+                    onSubmit(e);
                 }}
                 className="float-right md:float-left text-blue-500 md:hidden"
             >
-                {dataToEdit?.edit ? "edit" : "create"}
+                {dataToEdit?.edit ? "Edit" : "Create"}
             </button>
         </form>
     );

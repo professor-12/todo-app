@@ -1,6 +1,5 @@
 import React from "react";
 import Todo from "./Todo";
-import Create from "./Create";
 import Search from "./Search";
 import Completed from "./Completed";
 import { useTabs } from "../store";
@@ -15,7 +14,7 @@ const Tabs = () => {
             <AnimatePresence>
                 {tab == "create" && (
                     <>
-                        <Todo />
+                        <Todo setTab={setTab} />
                     </>
                 )}
             </AnimatePresence>

@@ -12,7 +12,6 @@ const Checkbox: React.FC<any> = ({ onChange, className }) => {
             onChange();
         }, 1000);
     };
-    console.log(check);
     return (
         <div className="flex h-full" onClick={onClick}>
             <div>
