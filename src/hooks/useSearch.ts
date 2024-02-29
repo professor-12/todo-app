@@ -8,7 +8,7 @@ const useSearch = (uncompleted: Todos[] , query:string) => {
     // Other options...
       };
       const fuse = new Fuse(uncompleted, options);
-      
+
       return fuse.search(query)
 }
 

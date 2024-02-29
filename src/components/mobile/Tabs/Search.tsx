@@ -12,17 +12,17 @@ const Search = () => {
     const unCompletedtodo = todos.filter((item) => !item.completed);
     const [searchResult, setSearchResult] = useState([]) as any;
     const [value, setValue] = useState("");
+    const filterdvalue = useSearch(unCompletedtodo, value);
 
     useEffect(() => {
         let mutatedArray = [] as Todos[];
-        const filterdvalue = useSearch(unCompletedtodo, value);
         filterdvalue.map((items) => {
             mutatedArray.push(items.item);
         });
         console.log(filterdvalue);
         if (value.trim().length == 0) return;
         setSearchResult(mutatedArray);
-    }, [value,unCompletedtodo]);
+    }, [value]);
     return (
         <>
             <div className="bg-pale-white  group border flex group items-center space-x-2 px-3 overflow-hidden rounded-xl">
