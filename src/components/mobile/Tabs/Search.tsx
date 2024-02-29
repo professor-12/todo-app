@@ -3,22 +3,25 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
 import UnCompletedTask from "@/components/Task/UnCompletedTask";
-import { useTodoContext } from "@/store/ToDoState";
-import NoTask from "@/components/NoTask";
+import { Todos, useTodoContext } from "@/store/ToDoState";
+
 import Image from "next/image";
+import useSearch from "@/hooks/useSearch";
 const Search = () => {
     const { todos } = useTodoContext();
     const unCompletedtodo = todos.filter((item) => !item.completed);
     const [searchResult, setSearchResult] = useState([]) as any;
     const [value, setValue] = useState("");
+
     useEffect(() => {
-        const filterdvalue = unCompletedtodo.filter(
-            (items) =>
-                items.title.toLowerCase().includes(value.toLocaleLowerCase()) ||
-                items.note.toLowerCase().includes(value.toLocaleLowerCase())
-        );
+        let mutatedArray = [] as Todos[];
+        const filterdvalue = useSearch(unCompletedtodo, value);
+        filterdvalue.map((items) => {
+            mutatedArray.push(items.item);
+        });
+        console.log(filterdvalue);
         if (value.trim().length == 0) return;
-        setSearchResult(filterdvalue);
+        setSearchResult(mutatedArray);
     }, [value]);
     return (
         <>
@@ -38,9 +41,7 @@ const Search = () => {
             </div>
             {value.trim().length == 0 && searchResult.length == 0 && (
                 <div className="flex h-[60vh] w-full items-center  justify-center">
-                    <p className="text-3xl text-dark-muted ">
-                        Search Todos..
-                    </p>
+                    <p className="text-3xl text-dark-muted ">Search Todos..</p>
                 </div>
             )}
             {value.trim().length > 0 && searchResult.length == 0 && (

@@ -28,6 +28,8 @@ const initialStore: InitialState = {
 };
 
 const store = createContext(initialStore) as any;
+
+
 export const useTodoContext = () => {
     return useContext<InitialState>(store);
 };

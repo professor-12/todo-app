@@ -46,7 +46,7 @@ const Todo = () => {
                 ) : (
                     Todo.map((items) => {
                         return (
-                            <div onClick={(e) => {}}>
+                            <div key={items.id} onClick={(e) => {}}>
                                 <UnCompletedTask
                                     handleEdit={handleEdit}
                                     key={items.id}
