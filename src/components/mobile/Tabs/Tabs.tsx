@@ -8,13 +8,13 @@ import { AnimatePresence } from "framer-motion";
 const Tabs = () => {
     const { tab, setTab } = useTabs();
     return (
-        <div>
+        <div className="h-screen">
             {tab === "search" && <Search />}
             {tab === "todo" && <Todo />}
             <AnimatePresence>
                 {tab == "create" && (
                     <>
-                        <Todo/>
+                        <Todo />
                     </>
                 )}
             </AnimatePresence>

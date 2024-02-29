@@ -1,5 +1,5 @@
 import { useTodoContext } from "@/store/ToDoState";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { HiPencil } from "react-icons/hi2";
 import { useTabs } from "../mobile/store";
@@ -8,8 +8,8 @@ import { useValidation } from "@/hooks/useInputValidation";
 const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
     const { _, setTab } = useTabs();
     const [title, setTitle] = useState("");
+    const [dynamicHeight, setDynamicHeight] = useState(54) as any;
     const [note, setNote] = useState("");
-
     const { hasError: noteHasError, setIsTouched: setNoteisTouched } =
         useValidation(() => note.trim().length == 0);
     useEffect(() => {
@@ -84,17 +84,26 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
                             <HiPencil />
                         </div>
                     </div>
-                    <textarea
-                        onBlur={() => setNoteisTouched(true)}
-                        value={note}
-                        autoCorrect="on"
-                        autoCapitalize="sentences"
-                        onChange={(e) => setNote(e.target.value)}
-                        className={`w-full overflow-y-hidden ${
-                            noteHasError && "border"
-                        } rounded border-red-300  md:text-start px-2 focus:outline-none bg-transparent`}
-                        placeholder="Add a note"
-                    />
+                    <div className="flex flex-grow">
+                        <textarea
+                            onKeyUp={(e) => {
+                                setDynamicHeight(e.currentTarget.scrollHeight);
+                            }}
+                            id="text-area"
+                            tabIndex={0}
+                            onBlur={() => setNoteisTouched(true)}
+                            value={note}
+                            autoCorrect="on"
+                            rows={1}
+                            style={{ height: dynamicHeight }}
+                            autoCapitalize="sentences"
+                            onChange={(e) => setNote(e.target.value)}
+                            className={`w-full resize-none overflow-y-hidden ${
+                                noteHasError && "border"
+                            } rounded  border-red-300 flex-grow overflow-y-hidden md:text-start px-2 focus:outline-none bg-transparent`}
+                            placeholder="Add a note"
+                        />
+                    </div>
                 </div>
                 {noteHasError && (
                     <span className="text-[0.8rem] text-end p-1 text-red-400">
