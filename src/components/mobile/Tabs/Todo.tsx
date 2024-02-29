@@ -65,7 +65,7 @@ const Todo = () => {
             </div>
             <AnimatePresence>
                 {(tab === "create" || value.edit) && (
-                    <Create editValue={value} setEditValue={setEditValue} />
+                    <Create editValue={value}  setEditValue={setEditValue} />
                 )}
             </AnimatePresence>
         </div>

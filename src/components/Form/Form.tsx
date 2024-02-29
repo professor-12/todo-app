@@ -21,6 +21,10 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
             setTitle("");
         }
     }, [dataToEdit, dataToEdit?.note, dataToEdit?.title, dataToEdit?.edit]);
+
+    useEffect(() => {
+        if (note.trim().length === 0) setDynamicHeight(54);
+    }, [note]);
     const { hasError: TitleHasError, setIsTouched: setTitleIsTouched } =
         useValidation(() => title.trim().length == 0) as any;
     const { dispatchState } = useTodoContext() as any;
@@ -89,6 +93,12 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
                             onKeyUp={(e) => {
                                 setDynamicHeight(e.currentTarget.scrollHeight);
                             }}
+                            onCut={(e) => {
+                                setDynamicHeight(e.currentTarget.scrollHeight);
+                            }}
+                            onPaste={(e) => {
+                                setDynamicHeight(e.currentTarget.scrollHeight);
+                            }}
                             id="text-area"
                             tabIndex={0}
                             onBlur={() => setNoteisTouched(true)}
@@ -98,9 +108,11 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
                             style={{ height: dynamicHeight }}
                             autoCapitalize="sentences"
                             onChange={(e) => setNote(e.target.value)}
-                            className={`w-full resize-none overflow-y-hidden ${
-                                noteHasError && "border"
-                            } rounded  border-red-300 flex-grow overflow-y-hidden md:text-start px-2 focus:outline-none bg-transparent`}
+                            className={`w-full max-h-[18rem]  resize  overflow-y-auto ${
+                                noteHasError && "border border-red-300"
+                            } rounded  flex-grow  md:text-start px-2 focus:outline-none bg-transparent  ${
+                                dynamicHeight >= 56 && "border border-lightblue"
+                            }`}
                             placeholder="Add a note"
                         />
                     </div>
