@@ -3,7 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { Todos, useTodoContext } from "@/store/ToDoState";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaSquareCheck } from "react-icons/fa6";
-import { TbDots } from "react-icons/tb";
+import { TbBrandChrome, TbDots } from "react-icons/tb";
 
 export interface Data {
     data: Todos;
@@ -11,7 +11,6 @@ export interface Data {
 const CompletedTask: React.FC<Data> = ({ data }) => {
     const { dispatchState } = useTodoContext() as any;
     const { title, id, note, dateCompleted } = data;
-
     const [_, setcheck] = useState(false);
     const handleChange = (e: any) => {
         setcheck((prev) => {
