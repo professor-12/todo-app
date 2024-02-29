@@ -14,7 +14,7 @@ const Tabs = () => {
             <AnimatePresence>
                 {tab == "create" && (
                     <>
-                        <Todo setTab={setTab} />
+                        <Todo/>
                     </>
                 )}
             </AnimatePresence>
