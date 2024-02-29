@@ -9,13 +9,19 @@ import { AnimatePresence } from "framer-motion";
 
 const Todo = () => {
     const { todos, userProfile } = useTodoContext();
-    const [value, setEditValue] = useState({edit:false}) as any;
+    const [value, setEditValue] = useState({ edit: false }) as any;
     const { tab, setTab } = useTabs();
     const [state] = useState(false);
 
     const handleEdit = (title: string, value: string, id: string) => {
-        setTab("create");
-        setEditValue(() => ({ title: title, note: value, edit: true, id }));
+        setEditValue((prev: any) => ({
+            ...prev,
+            title: title,
+            note: value,
+            edit: true,
+            id,
+        }));
+        console.log(value);
     };
     const Todo = todos.filter((items) => !items.completed);
     return (
@@ -58,12 +64,10 @@ const Todo = () => {
                 )}
             </div>
             <AnimatePresence>
-                {tab == "create" && (
-                    <Create
-                        editValue={value}
-                        setEditValue={setEditValue}
-                    />
-                )}
+                {tab === "create" ||
+                    (value.edit && (
+                        <Create editValue={value} setEditValue={setEditValue} />
+                    ))}
             </AnimatePresence>
         </div>
     );

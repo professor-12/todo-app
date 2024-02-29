@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import Form from "@/components/Form/Form";
 import { useTabs } from "../store";
@@ -8,6 +8,7 @@ interface CreateComponentType<U = {}> {
     setEditValue: () => any;
 }
 const Create: React.FC<CreateComponentType> = ({ editValue, setEditValue }) => {
+    console.log(editValue)
     const { _, setTab } = useTabs();
     return (
         <>
