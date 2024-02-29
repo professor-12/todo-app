@@ -20,7 +20,7 @@ const Form: React.FC<any> = ({ dataToEdit, state, setDataToEdit }) => {
             setNote("");
             setTitle("");
         }
-    }, [dataToEdit?.note, dataToEdit?.title, dataToEdit?.edit]);
+    }, [dataToEdit , dataToEdit?.note, dataToEdit?.title, dataToEdit?.edit]);
     const { hasError: TitleHasError, setIsTouched: setTitleIsTouched } =
         useValidation(() => title.trim().length == 0) as any;
     const { dispatchState } = useTodoContext() as any;

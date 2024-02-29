@@ -22,7 +22,7 @@ const Search = () => {
         console.log(filterdvalue);
         if (value.trim().length == 0) return;
         setSearchResult(mutatedArray);
-    }, [value]);
+    }, [value,unCompletedtodo]);
     return (
         <>
             <div className="bg-pale-white  group border flex group items-center space-x-2 px-3 overflow-hidden rounded-xl">
