@@ -5,13 +5,13 @@ import { useTabs } from "../store";
 
 interface CreateComponentType<U = {}> {
     editValue: string;
-    setEditValue: () => any;
+    setEditValue: (a:any) => any;
 }
 const Create: React.FC<CreateComponentType> = ({ editValue, setEditValue }) => {
     const { _, setTab } = useTabs();
     return (
         <>
-            <div onClick={() => setTab("todo")} className="inset-0 fixed" />
+            <div onClick={() => { setTab("todo"); setEditValue({edit:false})}} className="inset-0 bg-slate-500/10 fixed" />
             <motion.div
                 initial={{ y: 300 }}
                 animate={{ y: 0 }}

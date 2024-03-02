@@ -15,10 +15,10 @@ const Todo = () => {
     };
     if (Todo.length !== 0) {
         return (
-            <div className="space-y-4">
+            <div className="space-y-4 h-full overflow-y-auto pb-[15rem] ">
                 <div className="space-y-3">
                     {Todo.length > 0 && (
-                        <div className="flex justify-between">
+                        <div className="flex sticky top-0 bg-white justify-between">
                             <h1 className="text-lg space-x-2 items-center flex">
                                 <span className="font-semibold text-slate-800">
                                     Completed Task
