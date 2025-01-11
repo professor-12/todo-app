@@ -20,11 +20,13 @@ export interface InitialState {
     todos: Todos[];
     dispatchState: () => any;
     userProfile: any;
+    authcheckisloading: Boolean
 }
 const initialStore: InitialState = {
     todos: [],
-    dispatchState: () => {},
+    dispatchState: () => { },
     userProfile: null,
+    authcheckisloading: false
 };
 
 const store = createContext(initialStore) as any;
@@ -94,14 +96,11 @@ const reducers = (state: Array<Todos>, action: any) => {
                 return index.id == action.id;
             });
 
-            
-
             old[ItemThatNeedsToBeEdited] = {
                 ...old[ItemThatNeedsToBeEdited],
                 ...action.value,
             };
             const newVariable = [...old];
-
             localStorage.setItem("todo", JSON.stringify(newVariable));
             return newVariable;
         case "fetchData":
@@ -114,13 +113,12 @@ const ToDoState: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         reducers,
         initialStore.todos
     ) as any;
+    const [authcheckisloading, setAuthCheckisLoading] = useState(true)
     const [userProfile, setUserProfile] = useState() as any;
     useEffect(() => {
         const profile = localStorage.getItem!("profile") as any;
-        if (!profile) {
-            return alert("User Not Logged in");
-        }
-        setUserProfile(JSON.parse(profile));
+        setUserProfile(JSON.parse(profile))
+        setAuthCheckisLoading(false)
         const db = localStorage.getItem("todo") as any;
         if (!db) return;
         const response = JSON.parse(db);
@@ -128,7 +126,7 @@ const ToDoState: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     }, []);
     return (
         <store.Provider
-            value={{ todos: todo, dispatchState, userProfile, setUserProfile }}
+            value={{ todos: todo, dispatchState, userProfile, setUserProfile, authcheckisloading }}
         >
             {children}
         </store.Provider>

@@ -8,9 +8,15 @@ import Search from "@/components/mobile/Tabs/Search";
 import Registeration from "@/components/Registeration";
 
 export default function Home() {
-    const { todos, userProfile } = useTodoContext();
+    const { todos, userProfile, authcheckisloading } = useTodoContext();
+    console.log(authcheckisloading)
     const uncompleted = todos.filter((items) => !items.completed);
-    if (!userProfile) {
+    if (authcheckisloading) {
+        return <div className="fixed inset-0 w-full bg-white/40 z-[300] backdrop:blur-lg flex items-center justify-center">
+            <h1 className="text-blue-500 text-4xl sm:text-6xl font-semibold text-center text-balance tracking-widest animate-bounce">Taski</h1>
+        </div>
+    }
+    if (!userProfile && !authcheckisloading) {
         return <Registeration />;
     }
     return (
