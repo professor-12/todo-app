@@ -22,16 +22,14 @@ self.addEventListener("fetch", (event) => {
     console.log(url.pathname);
     // Handle _next/static file
     event.respondWith(
-        caches.open("my-cache").then((cache) => {
-            return cache.match(event.request).then((cachedResponse) => {
-                if (cachedResponse) {
-                    return cachedResponse;
-                }
-                return fetch(event.request).then((networkResponse) => {
-                    cache.put(event.request, networkResponse.clone());
-                    return networkResponse;
-                });
-            });
+        caches.open("my-cache").then(async (cache) => {
+            const cachedResponse = await cache.match(event.request);
+            if (cachedResponse) {
+                return cachedResponse;
+            }
+            const networkResponse = await fetch(event.request);
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
         })
     );
     return; // Exit to avoid running the default handler
